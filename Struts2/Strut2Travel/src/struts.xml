@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE struts PUBLIC  
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"  
+    "http://struts.apache.org/dtds/struts-2.3.dtd">  
+  
+  
+    <struts>  
+        <package name="struts2" namespace="/" extends="struts-default">  
+        
+        <!-- 定义一个拦截器 -->
+        <interceptors>
+        	<interceptor name="helloInterceptor" class="com.HelloInterceptor"></interceptor>
+        </interceptors>
+              
+            <action name="loginAction" class="com.LoginAction" method="login">
+            	<!-- 根据返回值，即name来跳转到不同的页面 -->
+     			<result name="success">/welcome.jsp</result>
+     			<result name="error">/error.jsp</result>
+     			
+     			<!-- 使用拦截器，必须添加默认的拦截器栈，要么会报错 -->  
+     			<interceptor-ref name="defaultStack"/>
+            	<interceptor-ref name="helloInterceptor" />
+     			
+   			</action> 
+   			
+   			<action name="registerAction" class="com.LoginAction" method="register">
+   				<result name="success">/register.jsp</result>
+   			</action> 
+   			
+        </package>  
+    </struts>  
