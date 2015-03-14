@@ -1,0 +1,43 @@
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema transaction
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `transaction` DEFAULT CHARACTER SET utf8 ;
+USE `transaction` ;
+
+-- -----------------------------------------------------
+-- Table `transaction`.`users`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `transaction`.`users` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  `account` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `transaction`.`goods`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `transaction`.`goods` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `discribe` VARCHAR(100) NULL DEFAULT NULL,
+  `price` VARCHAR(45) NOT NULL,
+  `picture` BLOB NULL DEFAULT NULL,
+  `seller` INT(11) NOT NULL,
+  `buyer` INT NULL DEFAULT NULL,
+  `status` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_goods_users_idx` (`seller` ASC),
+  CONSTRAINT `fk_goods_users`
+    FOREIGN KEY (`seller`)
+    REFERENCES `transaction`.`users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
