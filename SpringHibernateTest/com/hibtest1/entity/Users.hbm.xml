@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.hibtest1.entity.Users" table="users" catalog="bookshop">
+        <id name="id" type="java.lang.Integer">
+			<column name="Id" />
+            <generator class="native" />
+        </id>
+        <property name="loginName" type="java.lang.String">
+			<column name="LoginName" length="50" />
+		</property>
+        <property name="loginPwd" type="java.lang.String">
+			<column name="LoginPwd" length="16" />
+		</property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="     
+          http://www.springframework.org/schema/beans     
+          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd     
+          http://www.springframework.org/schema/context     
+          http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+          http://www.springframework.org/schema/aop     
+          http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"
+    default-autowire="byName">
+    
+    <!-- 声明一个业务类 -->
+    <bean id="aspectBusiness" class="com.hibtest1.HibernateDAO" />
+
+    <!-- 声明通知类 -->
+    <bean id="aspectAdvice" class="AspectTest" />
+
+    <aop:config>
+        <aop:aspect id="businessAspect" ref="aspectAdvice">
+            <!-- 配置指定切入的对象 -->
+            <aop:pointcut id="point_cut" expression="execution(* *.*(..))"/>
+
+            <!-- 前置通知 -->
+            <aop:before method="doBefore" pointcut-ref="point_cut" />        
+			<!-- 环绕通知 -->
+            <aop:around method="doAround" pointcut-ref="point_cut" />
+            <!-- 后置通知 returning指定返回参数 -->
+            <aop:after-returning method="doAfter" returning="result" pointcut-ref="point_cut" />
+			<!-- 异常通知 -->
+            <aop:after-throwing method="doThrow" pointcut-ref="point_cut" throwing="e"/>
+        </aop:aspect>
+    </aop:config>
+
+
+</beans>
